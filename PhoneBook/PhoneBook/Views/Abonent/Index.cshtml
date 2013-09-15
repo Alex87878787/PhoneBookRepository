@@ -1,0 +1,62 @@
+﻿@model PhoneBook.ViewModels.AbonentIndexData
+
+@{
+    ViewBag.Title = "Abonents";
+}
+
+<h2>Abonents</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            LastName
+        </th>
+        <th>
+            FirstName
+        </th>
+        <th>
+            Birthday
+        </th>
+        <th>
+            Numbers
+        </th>
+    </tr>
+
+@foreach (var item in Model.Abonents) {
+    string selectedRow = "";
+    if (item.AbonentId == ViewBag.AbonentId)
+    {
+        selectedRow = "selectedrow";
+    } 
+    <tr class="@selectedRow" valign="top">
+        <td>
+            @Html.ActionLink("Select", "Index", new { id = item.AbonentId }) | 
+            @Html.ActionLink("Edit", "Edit", new { id = item.AbonentId }) | 
+            @Html.ActionLink("Details", "Details", new { id = item.AbonentId }) | 
+            @Html.ActionLink("Delete", "Delete", new { id = item.AbonentId })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Birthday)
+        </td>
+        <td>
+            @{
+            foreach (var number in item.Numbers)
+            {
+                @number.Phone<br />
+            }
+            }
+        </td>
+    </tr>
+}
+
+</table>
